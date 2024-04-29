@@ -195,7 +195,8 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
     return GestureDetector(
       onTap: (){
         if(currentItem['name'] =="Bitcoin"){
-          context.goNamed(AppRoute.transactionHistory.name);
+         // pathParameters: {"detail":jsonData}
+          context.goNamed(AppRoute.transactionHistory.name, pathParameters: {"coin": currentItem['name']});
         }
       },
       child: Padding(

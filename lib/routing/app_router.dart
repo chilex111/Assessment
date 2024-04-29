@@ -61,9 +61,12 @@ final _router = GoRouter(
       builder: (context, state) => const Dashboard(), // Replace with your home page widget
       routes: [
         GoRoute(
-          path: 'transactionHistory',
+          path: 'transactionHistory/:coin',
           name: AppRoute.transactionHistory.name,
-          builder: (context, state) => const TransactionHistory(),
+          builder: (context, state) {
+            String coinName = state.pathParameters['coin']??"";
+           return  TransactionHistory(coinName);
+          },
             routes: [
               GoRoute(
                 path: 'transactionDetail/:detail',

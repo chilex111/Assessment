@@ -6,7 +6,6 @@ import 'package:assesment_project/constant/assets_constants.dart';
 import 'package:assesment_project/feature/explore/data/explore_provider.dart';
 import 'package:assesment_project/feature/explore/data/model/block_transaction_model.dart';
 import 'package:assesment_project/routing/route_paths.dart';
-import 'package:assesment_project/widget/spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -16,7 +15,8 @@ import 'package:go_router/go_router.dart';
 import '../../res/app_color.dart';
 
 class TransactionHistory extends ConsumerStatefulWidget {
-  const TransactionHistory({super.key});
+  String coin;
+  TransactionHistory(this.coin, {super.key});
 
   @override
   ConsumerState<TransactionHistory> createState() => _TransactionDetailState();
@@ -44,9 +44,20 @@ class _TransactionDetailState extends ConsumerState<TransactionHistory> {
         itemBuilder: (context, index) => transactionContainer(context, index, data.transactions)
       ),
           error: (error, _) => Center(child: Text('Error: $error')),
-    loading: ()=>  SpinKitFadingCircle(
-      size: 80, color: AppColor.primaryColor,
-
+    loading: ()=>  Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // Center children vertically
+          children: [
+            SpinKitFadingCircle(
+              size: 80, color: AppColor.primaryColor,
+            ),
+            Text('Fetching your ${widget.coin} transactions')
+          ],
+        ),
+      ),
     )),
     );
   }
